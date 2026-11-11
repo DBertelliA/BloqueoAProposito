@@ -14,19 +14,25 @@ public class Hilo implements Runnable{
     @Override
     public void run(){
         for(int i = 0; i < 1000; i++) {
-            if(this.nombre.equals("Daniel")) {
-                if (Transferencia.transferencia(c1, c2, valor)) {
-                    System.out.println(nombre + " realizó una transferencia");
-                } else {
-                    System.out.println(nombre + " no pudo realizar una transferencia");
+            System.out.println("Voy a hacer mis cosas");
+            synchronized (c1) {
+                Transferencia.transferencia(c1, c2, valor);
+                System.out.println(nombre + " realizó una transferencia");
+                synchronized (c2) {
+                    System.out.println("Acceso del 1 a 2");
                 }
-            }else {
-                if (Transferencia.transferencia(c1, c2, valor)) {
-                    System.out.println(nombre + " realizó una transferencia");
-                } else {
-                    System.out.println(nombre + " no pudo realizar una transferencia");
+            }
+
+            synchronized (c2){
+                Transferencia.transferencia(c1,c2,valor);
+                System.out.println(nombre + " realizó una transferencia");
+                synchronized (c1){
+                    System.out.println("Acceso del 2 a 1");
                 }
             }
         }
+
     }
 }
+
+
