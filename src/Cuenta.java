@@ -2,9 +2,6 @@ public class Cuenta {
     private double saldo;
     private String numC;
 
-    public Cuenta() {
-    }
-
     public Cuenta(String numC, double saldo) {
         this.saldo = saldo;
         this.numC = numC;
